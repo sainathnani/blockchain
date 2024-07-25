@@ -3,284 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <title>Landing</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        .form-container {
-            flex: 1;
-            padding-right: 20px;
-        }
-        .result-container {
-            flex: 1;
-            border-left: 1px solid #ccc;
-            padding-left: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group select, .form-group button {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            margin-top: 10px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .form-group button:disabled {
-            background-color: #ccc;
-        }
-        .result pre {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8f9fa;
-            padding: 10px 20px;
-            border-bottom: 1px solid #ccc;
-        }
-        .header .user-info {
-            display: flex;
-            align-items: center;
-        }
-        .header .user-info img {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-        .header .user-info .user-details {
-            display: flex;
-            flex-direction: column;
-            margin-right: 10px;
-        }
-
-        .header .user-info .user-info-icon {
-            font-family: Fo;
-        }
-        .header .user-info .user-details span {
-            font-size: 14px;
-        }
-        .copy-btn {
-            cursor: pointer;
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Blockchain App</h1>
-        <div class="user-info">
-          <a href="/account" ><button class=grey style="height:75px;width:150px">Account</button></a>
-            <div class="user-details">
-                <span id="user-name">{{ title }}</span>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-expand-lg bg-success">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">
+            <img src="/static/bitcoin.png" alt="BlockChain" width="50" height="50">
+        </a>
+        <h2 class="m-lg-auto text-white">Blockchain App</h2>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item me-3">
+                <a href="/account">
+                   <img src="/static/user.png" width="50" height="50">
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid p-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container">
+
+
+                <div class="form-group mb-3">
+                    <label for="sender_pvt">Sender Private Address:</label>
+                    <input class="form-control" type="text" id="sender_pvt" placeholder="Sender Private Address">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="sender_pub">Sender Public Address:</label>
+                    <input class="form-control" type="text" id="sender_pub" placeholder="Sender Public Address">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="recipient">Recipient Address:</label>
+                    <input class="form-control" type="text" id="recipient" placeholder="Recipient Address">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="amount">Amount:</label>
+                    <input class="form-control" type="number" id="amount" placeholder="Amount">
+                </div>
+                <div class="form-group mb-3">
+                    <button class="btn btn-success" id="sendTransaction">Generate Transaction</button>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="signature">Signature:</label>
+                    <input class="form-control" type="text" id="signature" placeholder="Signature">
+                </div>
+
+                <div class="container d-flex justify-content-between mb-3">
+                    <button class="btn btn-success" id="confirmTransaction">Confirm Transaction</button>
+
+                    <button class="btn btn-success" id="mineBlock">Mine Block</button>
+
+                    <button class="btn btn-success" id="resolveBlock">Resolve/Update Block</button>
+
+                </div>
+                <div class="container">
+                    <pre class="result" id="result"></pre>
+                </div>
             </div>
-{#            <button class="copy-btn" onclick="copyUsername()">Copy Username</button>#}
+
+        </div>
+        <div class="col-md-6">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+
+                    <button class="nav-link active" id="getChainBtn" data-bs-toggle="tab" data-bs-target="#getChain"
+                            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">View Chain
+                    </button>
+
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="viewTxnBtn" data-bs-toggle="tab" data-bs-target="#viewTxn"
+                            type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Filter
+                        Transactions
+                    </button>
+
+
+                </li>
+
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="getChain">
+
+                    <div class="container p-3">
+                        <button class="btn btn-success" id="chain">Get Chain</button>
+                        <div class="container">
+                            <pre id="chainResult"></pre>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade" id="viewTxn">
+                    <div class="container p-3">
+                        <div class="form-group mb-3">
+                            <label for="view">Enter Public Address</label>
+                            <input class="form-control" type="text" id="view" placeholder="Sender Public Address">
+                        </div>
+                        <div class="form-group mb-3">
+                            <button class="btn btn-outline-success" id="viewTransaction">View</button>
+                        </div>
+                        <div class="container">
+                            <pre id="txnResult"></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="container">
-        <div class="form-container">
-            <div class="form-group">
-                <button id="chain">Get Chain</button>
-            </div>
-            <div class="form-group">
-                <label for="view">View Txn for:</label>
-                <input type="text" id="view" placeholder="Sender Public Address">
-            </div>
-            <div class="form-group">
-                <button id="viewTransaction">View</button>
-            </div>
-            <div class="form-group">
-                <label for="sender_pvt">Sender Private Address:</label>
-                <input type="text" id="sender_pvt" placeholder="Sender Private Address">
-            </div>
-            <div class="form-group">
-                <label for="sender_pub">Sender Public Address:</label>
-                <input type="text" id="sender_pub" placeholder="Sender Public Address">
-            </div>
-            <div class="form-group">
-                <label for="recipient">Recipient Address:</label>
-                <input type="text" id="recipient" placeholder="Recipient Address">
-            </div>
-            <div class="form-group">
-                <label for="amount">Amount:</label>
-                <input type="number" id="amount" placeholder="Amount">
-            </div>
-            <div class="form-group">
-                <button id="sendTransaction">Generate Transaction</button>
-            </div>
-            <div class="form-group">
-                <label for="signature">Signature:</label>
-                <input type="text" id="signature" placeholder="Signature">
-            </div>
-            <div class="form-group">
-                <button id="confirmTransaction">Confirm Transaction</button>
-            </div>
-            <div class="form-group">
-                <button id="mineBlock">Mine Block</button>
-            </div>
-            <div class="form-group">
-                <button id="resolveBlock">Resolve/Update Block</button>
-            </div>
-        </div>
-        <div class="result-container">
-            <div class="result" id="result"></div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        function copyUsername() {
-            const userName = document.getElementById('user-name').innerText;
-            const tempInput = document.createElement('input');
-            tempInput.value = userName;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Username copied to clipboard');
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/css">
+
+    pre {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+</script>
+<script>
+    function copyUsername() {
+        const userName = document.getElementById('user-name').innerText;
+        const tempInput = document.createElement('input');
+        tempInput.value = userName;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Username copied to clipboard');
+    }
+
+    async function isAddressValid(address) {
+        try {
+            const response = await axios.post('http://localhost:6001/validate_address', {address});
+            return response.data.valid;
+        } catch (error) {
+            console.error('Error validating address:', error);
+            return false;
+        }
+    }
+
+    document.getElementById('sendTransaction').onclick = async function () {
+        const sender_private_key = document.getElementById('sender_pvt').value;
+        const sender_address = document.getElementById('sender_pub').value;
+        const receiver_address = document.getElementById('recipient').value;
+        const amount = document.getElementById('amount').value;
+
+        if (!sender_private_key || !receiver_address || !amount || !sender_address) {
+            alert('Please fill all fields');
+            return;
         }
 
-        async function isAddressValid(address) {
-            try {
-                const response = await axios.post('http://localhost:6001/validate_address', { address });
-                return response.data.valid;
-            } catch (error) {
-                console.error('Error validating address:', error);
-                return false;
-            }
+        const validAddress = await isAddressValid(receiver_address);
+        if (!validAddress) {
+            alert('Invalid receiver address');
+            return;
         }
 
-        document.getElementById('sendTransaction').onclick = async function() {
-            const sender_private_key = document.getElementById('sender_pvt').value;
-            const sender_address = document.getElementById('sender_pub').value;
-            const receiver_address = document.getElementById('recipient').value;
-            const amount = document.getElementById('amount').value;
+        try {
+            const response = await axios.post('http://localhost:6001/transactions/generate', {
+                sender_address,
+                sender_private_key,
+                receiver_address,
+                amount
+            });
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
+        }
+    };
 
-            if (!sender_private_key || !receiver_address || !amount || !sender_address) {
-                alert('Please fill all fields');
-                return;
-            }
+    document.getElementById('viewTransaction').onclick = async function () {
+        const sender_address = document.getElementById('view').value;
+        if (!sender_address) {
+            alert('Please provide the sender address');
+            return;
+        }
 
-            const validAddress = await isAddressValid(receiver_address);
-            if (!validAddress) {
-                alert('Invalid receiver address');
-                return;
-            }
+        try {
+            const response = await axios.post('http://localhost:6001/view', {sender_address});
+            document.getElementById('txnResult').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('txnResult').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
+        }
+    };
 
-            try {
-                const response = await axios.post('http://localhost:6001/transactions/generate', {
-                    sender_address,
-                    sender_private_key,
-                    receiver_address,
-                    amount
-                });
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
+    document.getElementById('confirmTransaction').onclick = async function () {
+        const sender_address = document.getElementById('sender_pub').value;
+        const receiver_address = document.getElementById('recipient').value;
+        const amount = document.getElementById('amount').value;
+        const signature = document.getElementById('signature').value;
 
-        document.getElementById('viewTransaction').onclick = async function() {
-            const sender_address = document.getElementById('view').value;
-            if (!sender_address) {
-                alert('Please provide the sender address');
-                return;
-            }
+        if (!sender_address || !receiver_address || !amount || !signature) {
+            alert('Please fill all fields');
+            return;
+        }
 
-            try {
-                const response = await axios.post('http://localhost:6001/view', { sender_address });
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
+        const validAddress = await isAddressValid(receiver_address);
+        if (!validAddress) {
+            alert('Invalid receiver address');
+            return;
+        }
 
-        document.getElementById('confirmTransaction').onclick = async function() {
-            const sender_address = document.getElementById('sender_pub').value;
-            const receiver_address = document.getElementById('recipient').value;
-            const amount = document.getElementById('amount').value;
-            const signature = document.getElementById('signature').value;
+        try {
+            const response = await axios.post('http://localhost:6001/transactions/new', {
+                sender_address,
+                receiver_address,
+                amount,
+                signature
+            });
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
+        }
+    };
 
-            if (!sender_address || !receiver_address || !amount || !signature) {
-                alert('Please fill all fields');
-                return;
-            }
+    document.getElementById('mineBlock').onclick = async function () {
+        try {
+            const response = await axios.get('http://localhost:6001/mine');
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
+        }
+    };
 
-            const validAddress = await isAddressValid(receiver_address);
-            if (!validAddress) {
-                alert('Invalid receiver address');
-                return;
-            }
+    document.getElementById('resolveBlock').onclick = async function () {
+        try {
+            const response = await axios.get('http://localhost:6001/nodes/resolve');
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
+        }
+    };
 
-            try {
-                const response = await axios.post('http://localhost:6001/transactions/new', {
-                    sender_address,
-                    receiver_address,
-                    amount,
-                    signature
-                });
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
-
-        document.getElementById('mineBlock').onclick = async function() {
-            try {
-                const response = await axios.get('http://localhost:6001/mine');
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
-
-        document.getElementById('resolveBlock').onclick = async function() {
-            try {
-                const response = await axios.get('http://localhost:6001/nodes/resolve');
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
-
-        document.getElementById('chain').onclick = async function() {
-            try {
-                const response = await axios.get('http://localhost:6001/chain');
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
-    </script>
+    document.getElementById('chain').onclick = async function () {
+        try {
+            const response = await axios.get('http://localhost:6001/chain');
+            document.getElementById('chainResult').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('chainResult').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
+        }
+    };
+</script>
 </body>
 </html>
