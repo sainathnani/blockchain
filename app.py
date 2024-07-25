@@ -14,7 +14,7 @@ import base64
 from Crypto.Hash import SHA
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, session
 from flask import url_for, flash, redirect
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -71,19 +71,13 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            session['email'] = form.email.data
 
             # Generate public and private keys
             public_key, private_key = rsa.newkeys(512)
             user.public_key = public_key.save_pkcs1().decode('utf-8')
             user.private_key = private_key.save_pkcs1().decode('utf-8')
             db.session.commit()
-
-            # Generate QR code for public key
-            qr = pyqrcode.create(user.public_key)
-            buffer = BytesIO()
-            qr.png(buffer, scale=5)
-            buffer.seek(0)
-            qr_code_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
             return redirect(url_for('landing'))
         else:
@@ -93,8 +87,15 @@ def login():
 
 @app.route('/account')
 def account():
-    # user = User.query.filter_by(email=current_user.email).first()
-    return render_template('account.html')
+
+    user = User.query.filter_by(email=session['email']).first()
+    # Generate QR code for public key
+    qr = pyqrcode.create(user.public_key)
+    buffer = BytesIO()
+    qr.png(buffer, scale=5)
+    buffer.seek(0)
+    qr_code_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    return render_template('account.html', title='Account', qr_code=qr_code_base64, email=user.email)
 
 
 @app.route('/landing')

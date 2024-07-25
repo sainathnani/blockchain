@@ -101,7 +101,7 @@
     <div class="header">
         <h1>Blockchain App</h1>
         <div class="user-info">
-            <img src="user-icon.png" id="profile" alt="User Icon">
+          <a href="/account" ><button class=grey style="height:75px;width:150px">Account</button></a>
             <div class="user-details">
                 <span id="user-name">{{ title }}</span>
             </div>
@@ -279,18 +279,6 @@
                 document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
             } catch (error) {
                 document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
-            }
-        };
-
-         document.getElementById('profile').onclick = function() {
-            try {
-                //const response = axios.get('http://localhost:6001/showAccount');
-                //axios.get('http://localhost:6001/showAccount');
-
-               window.location.href = 'http://localhost:6001/account'
-                //document.getElementById('result').innerHTML = `<pre>${JSON.stringify(response.data, null, 2)}</pre>`;
-            } catch (error) {
-                //document.getElementById('result').innerHTML = `<pre>${JSON.stringify(error.response.data, null, 2)}</pre>`;
             }
         };
     </script>
