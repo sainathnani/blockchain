@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+</head>
+<body>
+    <h1>Account</h1>
+    <h2>Your QR Code</h2>
+    <p>{{ email }}</p>
+    {% if qr_code %}
+        <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+    {% else %}
+        <p>No QR Code available.</p>
+    {% endif %}
+    <a href="{{ url_for('home') }}">Home</a>
+</body>
+</html>
