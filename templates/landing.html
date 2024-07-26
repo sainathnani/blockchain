@@ -169,11 +169,11 @@
             return;
         }
 
-        const validAddress = await isAddressValid(receiver_address);
-        if (!validAddress) {
-            alert('Invalid receiver address');
-            return;
-        }
+        {#const validAddress = await isAddressValid(receiver_address);#}
+        {#if (!validAddress) {#}
+        {#    alert('Invalid receiver address');#}
+        {#    return;#}
+        {#}#}
 
         try {
             const response = await axios.post('http://localhost:6001/transactions/generate', {
@@ -214,11 +214,11 @@
             return;
         }
 
-        const validAddress = await isAddressValid(receiver_address);
-        if (!validAddress) {
-            alert('Invalid receiver address');
-            return;
-        }
+        {#const validAddress = await isAddressValid(receiver_address);#}
+        {#if (!validAddress) {#}
+        {#    alert('Invalid receiver address');#}
+        {#    return;#}
+        {#}#}
 
         try {
             const response = await axios.post('http://localhost:6001/transactions/new', {
